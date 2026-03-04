@@ -3,6 +3,10 @@ git branch branch_name
 切换分支:
 git switch branch_name
 
+查看所有分支最新状态(不拉取):
+git fetch
+合并:
+git merge origin/main    
 公司操作流程:
 1.git clone url
 2.git checkout master
