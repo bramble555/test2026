@@ -21,5 +21,5 @@ git switch branch_name
 如果你一个功能 commit 了 20 次，导师会让你“压减提交”。
 
 做法： 使用 git rebase -i HEAD~n 将多个无意义的 commit 合并成一个整洁的提交
-
+神经病
 
