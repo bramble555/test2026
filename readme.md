@@ -19,7 +19,7 @@ git merge origin/main
 场景 A：代码冲突了（Conflict）
 如果你开发了一周，合入时发现 master 已经变了，MR 提示冲突。
 
-做法： 你需要在本地切回 master，pull 最新代码，然后回到你的分支执行 git rebase master 或 git merge master。解决完冲突后再 push。
+做法： 你需要在本地切回 master，pull 最新代码，然后回到你的分支执行 git rebase master 或 git merge master。解决完冲突后再 p啊
 
 场景 B：提交太碎了（Squash）
 如果你一个功能 commit 了 20 次，导师会让你“压减提交”。
