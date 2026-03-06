@@ -1,28 +1,611 @@
-创建分支:
-git branch branch_name
-切换分支:
-git switch branch_name
+很好，你这个要求其实是 **真正程序员做笔记的方式**：
 
-查看所有分支最新状态(不拉取):
+* **只保留最常用命令**
+* **参数写出全拼帮助记忆**
+* **结构清晰**
+* **能快速查**
+
+我帮你 **重新精炼 + 加上参数全拼解释**，做成 **真正实用版 Git 速查笔记**。
+
+---
+
+# Git 最常用命令速查（精炼版）
+
+---
+
+# 一、Git 四个核心区域（必须理解）
+
+```
+Working Tree   工作区
+Staging Area   暂存区（Index）
+Git Directory  本地仓库
+Remote Repo    远程仓库
+```
+
+代码流向：
+
+```
+Working Tree
+   ↓ git add
+Staging Area
+   ↓ git commit
+Git Directory
+   ↓ git push
+Remote Repo
+```
+
+---
+
+# 二、最常用命令（每天都会用）
+
+## 添加文件到暂存区
+
+```bash
+git add .
+```
+
+`.` 含义
+
+```
+当前目录所有文件
+```
+
+---
+
+## 提交代码
+
+```bash
+git commit -m "message"
+```
+
+参数：
+
+```
+-m = message
+```
+
+含义
+
+```
+提交说明
+```
+
+---
+
+## 推送代码
+
+```bash
+git push -u origin <branch_name>
+```
+
+参数：
+
+```
+-u = upstream
+```
+
+含义
+
+```
+建立本地分支 和 远程分支 的追踪关系
+```
+
+以后可以直接
+
+```
+git push
+```
+
+---
+
+## 拉取远程代码
+
+```bash
+git pull origin <branch_name>
+```
+
+等价于
+
+```
+git fetch origin <branch_name>
+git merge origin/<branch_name>
+```
+
+---
+
+## 查看远程更新（不合并）
+
+```bash
 git fetch
-合并:
-git merge origin/main    
-公司操作流程:
-1.git clone url
-2.git checkout master
-3.git pull origin master
-4.git checkout -b feature/user-login-auth  # 分支名通常带 feature/ 前缀
-5.git add .
-6.git commit -m "feat: add jwt token verification logic"
-7.git push -u origin feature/user-login-auth
-7. 进阶：大厂常遇到的两个“坎”
-场景 A：代码冲突了（Conflict）
-如果你开发了一周，合入时发现 master 已经变了，MR 提示冲突。
+```
 
-做法： 你需要在本地切回 master，pull 最新代码，然后回到你的分支执行 git rebase master 或 git merge master。解决完冲突后再 push。
+作用
 
-场景 B：提交太碎了（Squash）
-如果你一个功能 commit 了 20 次，导师会让你“压减提交”。
+```
+只下载远程代码
+不修改本地代码
+```
 
-做法： 使用 git rebase -i HEAD~n 将多个无意义的 commit 合并成一个整洁的提交
+---
 
+# 三、分支操作（开发最常用）
+
+## 创建分支
+
+```bash
+git branch <branch_name>
+```
+
+---
+
+## 创建并切换分支（最常用）
+
+```bash
+git checkout -b <branch_name>
+```
+
+参数
+
+```
+-b = branch
+```
+
+含义
+
+```
+创建并切换分支
+```
+
+等价命令
+
+```bash
+git switch -c <branch_name>
+```
+
+参数
+
+```
+-c = create
+```
+
+---
+
+## 切换分支
+
+```bash
+git switch <branch_name>
+```
+
+或者
+
+```bash
+git checkout <branch_name>
+```
+
+---
+
+## 查看分支
+
+查看本地
+
+```bash
+git branch
+```
+
+查看远程
+
+```bash
+git branch -r
+```
+
+参数
+
+```
+-r = remote
+```
+
+查看所有
+
+```bash
+git branch -a
+```
+
+参数
+
+```
+-a = all
+```
+
+---
+
+## 删除本地分支
+
+```bash
+git branch -d <branch_name>
+```
+
+参数
+
+```
+-d = delete
+```
+
+强制删除
+
+```bash
+git branch -D <branch_name>
+```
+
+含义
+
+```
+force delete
+```
+
+---
+
+## 删除远程分支
+
+```bash
+git push origin -d <branch_name>
+```
+
+---
+
+# 四、代码合并
+
+## 合并远程 main
+
+```bash
+git merge origin/main
+```
+
+---
+
+## 推荐方式（大厂）
+
+```bash
+git rebase origin/main
+```
+
+优点
+
+```
+提交历史更直线
+```
+
+---
+
+# 五、stash（临时保存代码）
+
+开发到一半需要切分支
+
+## 保存当前修改
+
+```bash
+git stash
+```
+
+---
+
+## 查看 stash
+
+```bash
+git stash list
+```
+
+---
+
+## 恢复代码
+
+```bash
+git stash pop
+```
+
+参数
+
+```
+pop = remove after apply
+```
+
+含义
+
+```
+恢复并删除 stash
+```
+
+或者
+
+```bash
+git stash apply
+```
+
+```
+恢复但保留 stash
+```
+
+---
+
+# 六、撤销操作（最容易忘）
+
+---
+
+## 撤销 add
+
+```
+Staging Area -> Working Tree
+```
+
+```bash
+git reset HEAD .
+```
+
+---
+
+## 撤销 commit 到暂存区
+
+```
+Git Directory -> Staging Area
+```
+
+```bash
+git reset --soft HEAD^
+```
+
+参数
+
+```
+--soft
+只撤销 commit
+```
+
+---
+
+## 撤销 commit 到未暂存
+
+```
+Git Directory -> Working Tree
+```
+
+```bash
+git reset --mixed HEAD^
+```
+
+参数
+
+```
+--mixed
+默认模式
+```
+
+---
+
+## 强制回退（危险）
+
+```
+Git Directory -> 上一个版本
+Working Tree 同步回退
+```
+
+```bash
+git reset --hard HEAD^
+```
+
+参数
+
+```
+--hard
+完全回退
+```
+
+⚠️
+
+```
+工作区文件会消失
+```
+
+---
+
+## 回到指定版本
+
+```bash
+git reset --hard <commit_id>
+```
+
+查看 commit
+
+```bash
+git log
+```
+
+---
+
+# 七、修改 commit
+
+## 修改 commit 信息
+
+```bash
+git commit --amend
+```
+
+参数
+
+```
+amend = modify
+```
+
+含义
+
+```
+修改上一次提交
+```
+
+---
+
+## 把文件追加到上一次 commit
+
+```bash
+git add .
+git commit --amend
+```
+
+---
+
+# 八、.gitignore 失效问题
+
+问题
+
+```
+文件已经 commit
+后来加入 .gitignore
+仍然被 Git 管理
+```
+
+原因
+
+```
+.gitignore 只忽略 未追踪文件
+```
+
+解决
+
+```bash
+git rm --cached <file_name>
+```
+
+参数
+
+```
+--cached
+只删除 Git 记录
+保留本地文件
+```
+
+全部清理
+
+```bash
+git rm -r --cached .
+```
+
+参数
+
+```
+-r = recursive
+```
+
+---
+
+# 九、公司开发流程（标准）
+
+### 1 克隆仓库
+
+```bash
+git clone <repo_url>
+```
+
+---
+
+### 2 切主分支
+
+```bash
+git checkout main
+```
+
+---
+
+### 3 更新代码
+
+```bash
+git pull origin main
+```
+
+---
+
+### 4 创建功能分支
+
+```bash
+git checkout -b feature/<branch_name>
+```
+
+分支规范
+
+```
+feature/<branch_name>  新功能
+fix/<branch_name>      修复bug
+hotfix/<branch_name>   紧急修复
+```
+
+---
+
+### 5 开发
+
+```
+git add .
+git commit -m "feat: xxx"
+```
+
+---
+
+### 6 推送
+
+```
+git push -u origin feature/<branch_name>
+```
+
+---
+
+### 7 提交 MR
+
+```
+Merge Request
+```
+
+等待 Review
+
+---
+
+# 十、Git 面试常问
+
+### git pull 和 git fetch 区别
+
+git fetch
+
+```
+只下载远程代码
+不合并
+```
+
+git pull
+
+```
+git fetch + git merge
+```
+
+---
+
+### merge vs rebase
+
+merge
+
+```
+保留分叉历史
+```
+
+rebase
+
+```
+提交历史更直线
+```
+
+---
+
+如果你愿意，我可以再给你一版 **真正“Go 后端春招面试级 Git 笔记”**，里面会补充：
+
+* **git cherry-pick**
+* **git reflog（救命命令）**
+* **git revert**
+* **git stash branch**
+* **git tag**
+* **git diff**
+
+这些是 **面试官特别喜欢问但 90% 学生不会的 Git 命令**。
