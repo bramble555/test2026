@@ -1,4 +1,3 @@
-
 ---
 
 # Git 最常用命令速查（精炼版）
@@ -14,11 +13,9 @@ Git Directory  本地仓库
 Remote Repo    远程仓库
 ```
 
-
 ---
 
 # 二、最常用命令（每天都会用）
-
 
 ## 推送代码
 
@@ -80,7 +77,6 @@ git checkout -b <branch_name>    (-b= branch,创建并切换分支)
 git switch -c <branch_name>    (-c = create,创建并切换分支)
 ```
 
-
 ---
 
 ## 切换分支
@@ -117,6 +113,7 @@ git branch -r    (-r = remote)
 git branch -a
 ```
 
+---
 
 ## 删除本地分支(危险)
 
@@ -154,6 +151,56 @@ git rebase origin/main
 
 ```
 提交历史更直线
+```
+
+---
+
+# 五、stash（临时保存代码）
+
+开发到一半需要切分支
+
+## 保存当前修改
+
+```bash
+git stash
+```
+
+---
+
+## 查看 stash
+
+```bash
+git stash list
+```
+
+---
+
+## 恢复代码
+
+```bash
+git stash pop
+```
+
+参数
+
+```
+pop = remove after apply
+```
+
+含义
+
+```
+恢复并删除 stash
+```
+
+或者
+
+```bash
+git stash apply
+```
+
+```
+恢复但保留 stash
 ```
 
 ---
@@ -223,6 +270,9 @@ git reset --hard <commit_id>
 git log
 ```
 
+```bash
+git reflog
+```
 ---
 
 # 七、修改 commit
@@ -264,80 +314,10 @@ git commit --amend
 .gitignore 只忽略 未追踪文件
 ```
 
-解决
+解决(只删除 Git 记录,保留本地文件)
 
 ```bash
 git rm --cached <file_name>
-```
-
-参数
-
-```
---cached
-只删除 Git 记录
-保留本地文件
-```
-
-全部清理
-
-```bash
-git rm -r --cached .
-```
-
-参数
-
-```
--r = recursive
-```
-
----
-
-# 五、stash（临时保存代码）
-
-开发到一半需要切分支
-
-## 保存当前修改
-
-```bash
-git stash
-```
-
----
-
-## 查看 stash
-
-```bash
-git stash list
-```
-
----
-
-## 恢复代码
-
-```bash
-git stash pop
-```
-
-参数
-
-```
-pop = remove after apply
-```
-
-含义
-
-```
-恢复并删除 stash
-```
-
-或者
-
-```bash
-git stash apply
-```
-
-```
-恢复但保留 stash
 ```
 
 ---
@@ -384,75 +364,23 @@ hotfix/<branch_name>   紧急修复
 
 ---
 
-### 5 开发
-
-```
+###5 开发
 git add .
 git commit -m "feat: xxx"
-```
+### 6 合并最新 main（提交前必须做）
+git fetch origin
+git rebase origin/main
 
----
+作用
 
-### 6 推送
-
-```
+同步最新主分支代码
+提前解决冲突
+### 7 推送
 git push -u origin feature/<branch_name>
-```
-
----
-
-### 7 提交 MR
-
-```
+### 8 提交 MR
 Merge Request
-```
 
 等待 Review
 
 ---
 
-# 十、Git 面试常问
-
-### git pull 和 git fetch 区别
-
-git fetch
-
-```
-只下载远程代码
-不合并
-```
-
-git pull
-
-```
-git fetch + git merge
-```
-
----
-
-### merge vs rebase
-
-merge
-
-```
-保留分叉历史
-```
-
-rebase
-
-```
-提交历史更直线
-```
-
----
-
-如果你愿意，我可以再给你一版 **真正“Go 后端春招面试级 Git 笔记”**，里面会补充：
-
-* **git cherry-pick**
-* **git reflog（救命命令）**
-* **git revert**
-* **git stash branch**
-* **git tag**
-* **git diff**
-
-这些是 **面试官特别喜欢问但 90% 学生不会的 Git 命令**。
