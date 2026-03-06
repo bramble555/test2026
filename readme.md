@@ -1,11 +1,3 @@
-很好，你这个要求其实是 **真正程序员做笔记的方式**：
-
-* **只保留最常用命令**
-* **参数写出全拼帮助记忆**
-* **结构清晰**
-* **能快速查**
-
-我帮你 **重新精炼 + 加上参数全拼解释**，做成 **真正实用版 Git 速查笔记**。
 
 ---
 
@@ -22,78 +14,16 @@ Git Directory  本地仓库
 Remote Repo    远程仓库
 ```
 
-代码流向：
-
-```
-Working Tree
-   ↓ git add
-Staging Area
-   ↓ git commit
-Git Directory
-   ↓ git push
-Remote Repo
-```
 
 ---
 
 # 二、最常用命令（每天都会用）
 
-## 添加文件到暂存区
-
-```bash
-git add .
-```
-
-`.` 含义
-
-```
-当前目录所有文件
-```
-
----
-
-## 提交代码
-
-```bash
-git commit -m "message"
-```
-
-参数：
-
-```
--m = message
-```
-
-含义
-
-```
-提交说明
-```
-
----
 
 ## 推送代码
 
 ```bash
-git push -u origin <branch_name>
-```
-
-参数：
-
-```
--u = upstream
-```
-
-含义
-
-```
-建立本地分支 和 远程分支 的追踪关系
-```
-
-以后可以直接
-
-```
-git push
+git push -u origin <branch_name> (-u = upstream, 建立本地分支 和 远程分支 的追踪关系,方便以后可以直接 git push)
 ```
 
 ---
@@ -141,32 +71,15 @@ git branch <branch_name>
 ## 创建并切换分支（最常用）
 
 ```bash
-git checkout -b <branch_name>
-```
-
-参数
-
-```
--b = branch
-```
-
-含义
-
-```
-创建并切换分支
+git checkout -b <branch_name>    (-b= branch,创建并切换分支)
 ```
 
 等价命令
 
 ```bash
-git switch -c <branch_name>
+git switch -c <branch_name>    (-c = create,创建并切换分支)
 ```
 
-参数
-
-```
--c = create
-```
 
 ---
 
@@ -176,7 +89,7 @@ git switch -c <branch_name>
 git switch <branch_name>
 ```
 
-或者
+等价
 
 ```bash
 git checkout <branch_name>
@@ -195,13 +108,7 @@ git branch
 查看远程
 
 ```bash
-git branch -r
-```
-
-参数
-
-```
--r = remote
+git branch -r    (-r = remote)
 ```
 
 查看所有
@@ -210,41 +117,16 @@ git branch -r
 git branch -a
 ```
 
-参数
 
-```
--a = all
+## 删除本地分支(危险)
+
+```bash
+git branch -d <branch_name>    (-d = delete)
 ```
 
 ---
 
-## 删除本地分支
-
-```bash
-git branch -d <branch_name>
-```
-
-参数
-
-```
--d = delete
-```
-
-强制删除
-
-```bash
-git branch -D <branch_name>
-```
-
-含义
-
-```
-force delete
-```
-
----
-
-## 删除远程分支
+## 删除远程分支(危险)
 
 ```bash
 git push origin -d <branch_name>
@@ -272,56 +154,6 @@ git rebase origin/main
 
 ```
 提交历史更直线
-```
-
----
-
-# 五、stash（临时保存代码）
-
-开发到一半需要切分支
-
-## 保存当前修改
-
-```bash
-git stash
-```
-
----
-
-## 查看 stash
-
-```bash
-git stash list
-```
-
----
-
-## 恢复代码
-
-```bash
-git stash pop
-```
-
-参数
-
-```
-pop = remove after apply
-```
-
-含义
-
-```
-恢复并删除 stash
-```
-
-或者
-
-```bash
-git stash apply
-```
-
-```
-恢复但保留 stash
 ```
 
 ---
@@ -491,6 +323,56 @@ git rm -r --cached .
 
 ```
 -r = recursive
+```
+
+---
+
+# 五、stash（临时保存代码）
+
+开发到一半需要切分支
+
+## 保存当前修改
+
+```bash
+git stash
+```
+
+---
+
+## 查看 stash
+
+```bash
+git stash list
+```
+
+---
+
+## 恢复代码
+
+```bash
+git stash pop
+```
+
+参数
+
+```
+pop = remove after apply
+```
+
+含义
+
+```
+恢复并删除 stash
+```
+
+或者
+
+```bash
+git stash apply
+```
+
+```
+恢复但保留 stash
 ```
 
 ---
